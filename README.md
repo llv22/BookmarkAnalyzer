@@ -7,7 +7,7 @@
 **bookmark sample location** - C:\Users\i058959\Desktop\Demo\orlando_utilities\Safaris_optimization\bookmarks  
 
 1, **v1** - written in **Java 8**  
-location: java/ subfolder  
+location - java/ subfolder  
   
 
 2, **v2** - written in **Swift**
