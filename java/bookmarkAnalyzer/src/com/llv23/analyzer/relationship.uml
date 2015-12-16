@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="-620.0" y="-321.5">com.llv23.analyzer.controller.DuplicateAnalysisController</node>
+    <node x="-545.0" y="-203.5">com.llv23.analyzer.model.Category</node>
+    <node x="-281.0" y="-166.5">com.llv23.analyzer.BookmarkAnalyzer</node>
+    <node x="-713.0" y="-209.5">com.llv23.analyzer.model.Bookmark</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic Group" zoom="1.0" x="0.0" y="0.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
