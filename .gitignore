@@ -1,0 +1,6 @@
+# for Java ignored files
+#
+*.class
+# intellj project
+.idea/
+
