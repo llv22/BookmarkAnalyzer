@@ -1,8 +1,13 @@
 package com.llv23.analyzer;
 
+import com.llv23.analyzer.controller.DuplicateAnalysisController;
+import com.llv23.analyzer.model.BookmarkNode;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -38,7 +43,7 @@ public class BookmarkAnalyzer {
         }
         //see: check command option and file location
         String command = args[0].toLowerCase();
-        if (!command.contentEquals("analysis") && !command.contentEquals("-a")) {
+        if (!command.contentEquals("analysis") && !command.equalsIgnoreCase("-a")) {
             System.err.println("Invalid command name, please enter \"analysis\" or \"-a\"");
             System.exit(-1);
         }
@@ -46,6 +51,15 @@ public class BookmarkAnalyzer {
         if (!Files.exists(file)) {
             System.err.println("Invalid bookmark file, please select valid one or use chrome to export html bookmark file");
             System.exit(-1);
+        }
+        DuplicateAnalysisController proxy = new DuplicateAnalysisController(file.toFile());
+        Map<String, List<BookmarkNode>> conflicts = proxy.analyzeBookmarks();
+        for (Map.Entry<String, List<BookmarkNode>> pair : conflicts.entrySet()) {
+            System.out.printf("Conflicted bookmark Node - %s, with node conflicts as follow\n", pair.getKey());
+            int count = 1;
+            for(BookmarkNode node : pair.getValue()) {
+                System.out.printf("\tposition %d - %s\n", count++, node.getBookmarkFolderNode());
+            }
         }
     }
 

@@ -11,19 +11,17 @@ import java.util.Optional;
  * @version 1.0
  * @since Dec 16th, 2015
  */
-public class Category {
-    /**
-     * this section is required for one category itself
-     */
-    private long creationTime;
+public class BookmarkFolderNode extends GenericMarkNode{
     private long lastModificationTime;
-    private String name;
 
     /**
-     * this section is required for category organization
+     * parent folder contained current folder node
      */
-    private Category parent;
-    private List<Category> childs;
+    private BookmarkFolderNode parent;
+    /**
+     * children folder, which belong to current folder node
+     */
+    private List<BookmarkFolderNode> childs;
 
     /**
      * should be initialize childs List<Category> inside to avoid null pointer
@@ -32,23 +30,18 @@ public class Category {
      * @param _lastModificationTime
      * @param _parent
      */
-    public Category(String _name, long _creationTime, Optional<Long> _lastModificationTime, Optional<Category> _parent) {
-        this.name = _name;
-        this.creationTime = _creationTime;
+    public BookmarkFolderNode(String _name, long _creationTime, Optional<Long> _lastModificationTime, Optional<BookmarkFolderNode> _parent) {
+        super(_name, _creationTime);
         if (_lastModificationTime.isPresent()) {
             this.lastModificationTime = _lastModificationTime.get();
         }
         else {
-            this.lastModificationTime = this.creationTime;
+            this.lastModificationTime = _creationTime;
         }
         if(_parent.isPresent()) {
             this.parent = _parent.get();
         }
-        this.childs = new ArrayList<Category>();
-    }
-
-    public long getCreationTime() {
-        return creationTime;
+        this.childs = new ArrayList<BookmarkFolderNode>();
     }
 
     public long getLastModificationTime() {
@@ -59,7 +52,7 @@ public class Category {
         return name;
     }
 
-    public Category getParent() {
+    public BookmarkFolderNode getParent() {
         return parent;
     }
 
@@ -75,22 +68,22 @@ public class Category {
      * don't allow change list outside of class
      * @return
      */
-    public final List<Category> getChilds() {
+    public final List<BookmarkFolderNode> getChilds() {
         return childs;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Category)) return false;
+        if (!(o instanceof BookmarkFolderNode)) return false;
 
-        Category category = (Category) o;
+        BookmarkFolderNode bookmarkFolderNode = (BookmarkFolderNode) o;
 
-        if (creationTime != category.creationTime) return false;
-        if (lastModificationTime != category.lastModificationTime) return false;
-        if (!name.equals(category.name)) return false;
+        if (creationTime != bookmarkFolderNode.creationTime) return false;
+        if (lastModificationTime != bookmarkFolderNode.lastModificationTime) return false;
+        if (!name.equals(bookmarkFolderNode.name)) return false;
         //TODO: recursive to do equalization checkup for parent, is it costy?
-        return parent.equals(category.parent);
+        return parent.equals(bookmarkFolderNode.parent);
     }
 
     @Override
@@ -105,12 +98,12 @@ public class Category {
     /**
      * check if category already exists in childs list, if not, add and return true;
      * otherwise, return false
-     * @param _category
+     * @param _bookmarkFolderNode
      * @return
      */
-    public boolean addToChilds(Category _category) {
-        if (!this.childs.contains(_category)) {
-            return this.childs.add(_category);
+    public boolean addToChilds(BookmarkFolderNode _bookmarkFolderNode) {
+        if (!this.childs.contains(_bookmarkFolderNode)) {
+            return this.childs.add(_bookmarkFolderNode);
         }
         return false;
     }
@@ -118,12 +111,12 @@ public class Category {
     /**
      * remove category from childs list, if it exits;
      * otherwise, return false
-     * @param _category
+     * @param _bookmarkFolderNode
      * @return
      */
-    public boolean removeFromChilds(Category _category) {
-        if (this.childs.contains(_category)) {
-            return this.childs.remove(_category);
+    public boolean removeFromChilds(BookmarkFolderNode _bookmarkFolderNode) {
+        if (this.childs.contains(_bookmarkFolderNode)) {
+            return this.childs.remove(_bookmarkFolderNode);
         }
         return  false;
     }
